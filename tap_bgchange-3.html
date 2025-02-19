@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>탭 버튼 배경색 변경</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        padding: 50px;
+        background-color: #f4f4f4;
+      }
+      .taps {
+        display: flex;
+        justify-content: space-around;
+        background-color: #fff;
+      }
+      .tap {
+        flex: 1;
+        padding: 10px 20px;
+        background-color: #f4f4f4;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s;
+        border-bottom: 4px solid #ddd;
+      }
+      .tap:hover {
+        background-color: #ddd;
+      }
+      .tap.active {
+        background-color: #567da7;
+        color: #fff;
+        border-bottom: 4px solid #ffbfbf;
+      }
+      .content {
+        padding: 20px;
+        background-color: #fff;
+        margin: 20px 0;
+        border-radius: 8px;
+        display: none;
+      }
+      .content.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="taps">
+      <button class="tap">음료</button>
+      <button class="tap">빵</button>
+      <button class="tap">커피</button>
+      <button class="tap">아이스크림</button>
+      <button class="tap">과일</button>
+    </div>
+    <div id="drink" class="content">
+      <h2>음료</h2>
+      <p>여기는 음료에 대한 내용입니다.</p>
+    </div>
+    <div id="bread" class="content">
+      <h2>빵</h2>
+      <p>여기는 빵에 대한 내용입니다.</p>
+    </div>
+    <div id="coffee" class="content">
+      <h2>커피</h2>
+      <p>여기는 커피에 대한 내용입니다.</p>
+    </div>
+    <div id="iceCream" class="content">
+      <h2>아이스크림</h2>
+      <p>여기는 아이스크림에 대한 내용입니다.</p>
+    </div>
+    <div id="fruit" class="content">
+      <h2>과일</h2>
+      <p>여기는 과일에 대한 내용입니다.</p>
+    </div>
+    <script>
+      const taps = document.querySelectorAll(".tap");
+      const contentIds = ["drink", "bread", "coffee", "iceCream", "fruit"];
+      taps.forEach((tap, index) => {
+        // console.log(`tap : ${tap} , index : ${index}`);
+        tap.addEventListener("click" , function(){
+            showContent(contentIds[index])
+        })
+      });
+    //   탭 클릭 시, 해당되는 콘텐트 영역으로 가기
+    //   ↓영역들에게 index 번호 부여하기
+    function showContent(contentId){
+        // 모든 탭 비활성화 시켜놓기
+        taps.forEach((tap) => tap.classList.remove("active"))
+        // 모든 콘텐츠 비활성화 시켜놓기
+        document.querySelectorAll(".content").forEach((content)=>{
+            content.classList.remove("active")
+        })
+
+        const activeIndex = contentIds.indexOf(contentId)
+        // console.log(activeIndex);
+        if(activeIndex != -1){
+            taps[activeIndex].classList.add("active")
+        }
+        document.getElementById(contentId).classList.add("active")
+
+    }
+    </script>
+  </body>
+</html>

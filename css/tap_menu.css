@@ -1,0 +1,87 @@
+@charset "utf-8";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ul, li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: #333;
+}
+.inner{
+    width: 100%;
+    max-width: 960px;
+    margin: auto;
+    background-color: aqua;
+}
+.header .inner{
+display: flex;
+justify-content: space-between;
+align-items: center;
+line-height: 70px;
+}
+.header .inner h1{
+    text-align: center;
+    width: 20%;
+    background-color: rgb(255, 171, 62);
+}
+.tap-nav{
+    display: flex;
+    width: 70%;
+    text-align: center;
+    background-color: rgb(215, 255, 209);
+}
+.tap-nav li{
+    width: calc(100% / 5);
+}
+.tap-nav li a:hover ,
+.tap-nav li a.active{
+    background-color: cadetblue;
+    color: #fff;
+}
+.tap-nav li a{
+    display: block;
+    width: 100%;
+    /* a 크기 키우기 (li 크기만큼) */
+}
+.popup{
+    position: relative;
+    display: block;
+    background-color: antiquewhite;
+}
+.popup-btn{
+position: absolute;
+right: 50px;
+}
+.popup-btn a {
+    display: block;
+    text-align: center;
+    width: 80px;
+    font-size: 14px;
+    padding: 5px 12px;
+    background-color: rgb(180, 226, 255);
+}
+.popup-btn a::after{
+    content: "close";
+}
+.popup-btn a.active::after{
+    content: "open";
+}
+
+/* tapitem */
+.tapitem{
+    position: relative;
+}
+.content{
+    width: 30%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.content .inner{
+
+    background-color: rgb(255, 140, 190);
+}
