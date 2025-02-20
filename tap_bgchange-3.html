@@ -82,28 +82,41 @@
       const contentIds = ["drink", "bread", "coffee", "iceCream", "fruit"];
       taps.forEach((tap, index) => {
         // console.log(`tap : ${tap} , index : ${index}`);
-        tap.addEventListener("click" , function(){
-            showContent(contentIds[index])
-        })
+        tap.addEventListener("click", function () {
+          showContent(contentIds[index]);
+        });
       });
-    //   탭 클릭 시, 해당되는 콘텐트 영역으로 가기
-    //   ↓영역들에게 index 번호 부여하기
-    function showContent(contentId){
+      //   탭 클릭 시, 해당되는 콘텐트 영역으로 가기
+      //   ↓영역들에게 index 번호 부여하기
+      function showContent(contentId) {
         // 모든 탭 비활성화 시켜놓기
-        taps.forEach((tap) => tap.classList.remove("active"))
+        taps.forEach((tap) => tap.classList.remove("active"));
         // 모든 콘텐츠 비활성화 시켜놓기
-        document.querySelectorAll(".content").forEach((content)=>{
-            content.classList.remove("active")
-        })
-
-        const activeIndex = contentIds.indexOf(contentId)
+        document.querySelectorAll(".content").forEach((content) => {
+          content.classList.remove("active");
+        });
+        const activeIndex = contentIds.indexOf(contentId);
         // console.log(activeIndex);
-        if(activeIndex != -1){
-            taps[activeIndex].classList.add("active")
+        if (activeIndex != -1) {
+          taps[activeIndex].classList.add("active");
         }
-        document.getElementById(contentId).classList.add("active")
-
-    }
+        document.getElementById(contentId).classList.add("active");
+        // 배경색 변경
+        document.body.style.backgroundColor =
+          contentId === "drink"
+            ? "#e0f7fa"
+            : contentId === "bread"
+            ? "#fff3e0"
+            : contentId === "coffee"
+            ? "#f3e5f5"
+            : contentId === "iceCream"
+            ? "#ffebee"
+            : "#e8f5e9"; // 과일
+      }
+      // 페이지 로딩 시 (첫화면), "drink" 탭 활성화
+      window.addEventListener("DOMContentLoaded" , ()=>{
+        showContent("drink")
+      })
     </script>
   </body>
 </html>

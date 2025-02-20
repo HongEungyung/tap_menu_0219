@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 제이쿼리 cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"
+      integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <title>cookie 예제 - 오늘 하루 동안 이 창 열지 않기</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      #notice_wrap {
+        width: 300px;
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        box-shadow: 0 0 8px #000;
+      }
+      #notice_wrap img {
+        width: 100%;
+      }
+      .closeWrap {
+        background-color: #000;
+        color: #fff;
+        text-align: right;
+        padding: 5px 10px;
+      }
+      .closeWrap button {
+        margin-left: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+      <div id="notice_wrap">
+        <h1>오랜만에 제이쿼리로</h1>
+      <img src="images/Frame 1.png" alt="" />
+      <p class="closeWrap">
+        <input type="checkbox" id="chk" />
+        <label for="chk">오늘 하루 동안 이 창 열지 않기</label>
+        <button class="closeBtn">닫기</button>
+      </p>
+    </div>
+    <script>
+      $(function () {
+        // ↓ 새로고침해도 다시 popup 안뜨게 하는 코드
+        if ($.cookie("popup") === "none") {
+          $("#notice_wrap").hide();
+        }
+
+        let chk = $("#chk");
+        $(".closeBtn").on("click", function () {
+          // ↓ 체크박스에 체크되면 (if 조건 충족) popup 이라는 이름의 쿠키를 만드는 코드
+          if (chk.is(":checked")) {
+            $.cookie("popup", "none", { expires: 1, path: "/" });
+          }
+          $("#notice_wrap").fadeOut("fast");
+        });
+      });
+    </script>
+  </body>
+</html>

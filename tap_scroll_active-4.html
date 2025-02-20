@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+  
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          padding: 0 200px;
+         
+        }
+  
+        .taps {
+          display: flex;
+          justify-content: space-around;
+          background-color: #fff;
+          border-bottom: 4px solid #ddd;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 1000;
+        }
+  
+        .tap {
+          padding: 10px 20px;
+          background-color: #f4f4f4;
+          border: none;
+          cursor: pointer;
+          font-size: 16px;
+          position: relative;
+          transition: all 0.3s;
+        }
+  
+        .tap:hover {
+          background-color: #ddd;
+        }
+  
+        .tap.active {
+          color: #0056b3;
+        }
+  
+        .tap.active::after {
+          content: "";
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 100%;
+          height: 4px;
+          background-color: #0056b3;
+        }
+  
+        .content-container {
+          padding-top: 60px;
+        }
+  
+        .content {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          margin-top: 20px;
+          height: 600px;
+        }
+      </style>
+</head>
+<body>
+    <div class="taps">
+        <button class="tap" id="tap-drink" onclick="scrollToSection('drink')">음료</button>
+        <button class="tap" id="tap-bread" onclick="scrollToSection('bread')">빵</button>
+        <button class="tap" id="tap-coffee" onclick="scrollToSection('coffee')">커피</button>
+        <button class="tap" id="tap-iceCream" onclick="scrollToSection('iceCream')">아이스크림</button>
+        <button class="tap" id="tap-fruit" onclick="scrollToSection('fruit')">과일</button>
+      </div>
+      <div class="content-container">
+        <div id="drink" class="content"><h2>음료</h2></div>
+        <div id="bread" class="content"><h2>빵</h2></div>
+        <div id="coffee" class="content"><h2>커피</h2></div>
+        <div id="iceCream" class="content"><h2>아이스크림</h2></div>
+        <div id="fruit" class="content"><h2>과일</h2></div>
+      </div>
+      <script>
+        // 탭메뉴 클릭 시 해당 영역으로 가기
+        function scrollToSection(sectionId){
+          // console.log(sectionId);
+          const section = document.getElementById(sectionId)
+          // console.log(section);
+          // 탭메뉴 위치값 알아보기
+          console.log(document.querySelector(".taps").offsetHeight);
+          // 탭메뉴 높이 값 만큼 빼라
+          const offsetTop = section.offsetTop - document.querySelector(".taps").offsetHeight
+          // offsetHeight : 브라우저에서 위치값 알려주기
+          // console.log(offsetTop);
+          // 해당 브라우저 위치로 가라
+          window.scrollTo({top:offsetTop , behavior:"smooth"});
+      }
+
+      // 탭 활성화 + 배경색 변경
+      window.addEventListener("scroll" , ()=>{
+        const taps = document.querySelectorAll(".tap")
+        const sections = document.querySelectorAll(".content")
+        let activeSection = ""
+        sections.forEach((section)=>{
+          // console.log(section);
+          const rect = section.getBoundingClientRect()
+          // console.log(rect);
+          if(rect.top <= 50 && rect.bottom >= 250){
+            activeSection = section.id
+            // console.log(activeSection);
+          }
+        })
+        taps.forEach( tap =>{
+          tap.classList.remove("active")
+          if(tap.id === `tap-${activeSection}`){
+            tap.classList.add("active")
+            // 배경색 변경
+          document.body.style.backgroundColor =
+          activeSection === "drink"
+              ? "#e0f7fa"
+              : activeSection === "bread"
+              ? "#fff3e0"
+              : activeSection === "coffee"
+              ? "#f3e5f5"
+              : activeSection === "iceCream"
+              ? "#ffebee"
+              : "#e8f5e9"; // 과일
+          }
+        })
+      })
+      // 페이지 로딩시 "음료 탭"이 활성화
+      window.addEventListener("DOMContentLoaded" , ()=>{
+        scrollToSection("drink")
+      })
+      </script>
+</body>
+</html>
